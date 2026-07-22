@@ -35,9 +35,45 @@ For each song, the recommender will compare its genre, mood, energy, and acousti
 
 Each Song object stores: id, title, artist, genre, mood, energy, tempo_bpm, valence, danceability, acousticness
 
-Each UserProfile object stores:, favorite_genre, favorite_mood, target_energy, likes_acoustic
+Each UserProfile object stores: favorite_genre, favorite_mood, target_energy, likes_acoustic
 
 The initial recommendation score will prioritize genre, mood, energy closeness, and acousticness preference. Tempo, valence, and danceability will remain available for evaluation or future improvements.
+
+**Phase 2 Design Plan**
+
+User Taste Profile
+
+The initial simulation will use the following user profile:
+
+```python
+user_profile = {
+    "favorite_genre": "lofi",
+    "favorite_mood": "chill",
+    "target_energy": 0.40,
+    "likes_acoustic": True,
+}
+```
+
+This profile gives the recommender both categorical and numerical preferences. Genre and mood describe the user's preferred musical style and emotional atmosphere. Target energy allows the system to reward songs that are close to a preferred intensity instead of always favoring songs with higher energy. The acoustic preference provides an additional way to distinguish songs with similar genres, moods, or energy levels.
+
+Algorithm Recipe
+
+Each song will receive a relevance score using the following rules:
+
+* Add `2.0` points when the song's genre matches the user's favorite genre.
+* Add `1.0` point when the song's mood matches the user's favorite mood.
+* Add up to `1.0` point for energy similarity using `1 - abs(song_energy - target_energy)`.
+* Add `0.5` point when the song's acousticness matches the user's acoustic preference. An acousticness value of `0.60` or greater will be treated as acoustic.
+
+The highest possible score is `4.5`. After every song has been scored, the system will sort the songs from highest score to lowest score and return the top `k` recommendations.
+
+Data Flow
+
+User preferences + songs.csv => Score each individual song => Record each score and matching reasons => Sort all songs from highest to lowest score => Return the top k recommendations
+
+Potential Biases
+
+This system may over-prioritize exact genre matches because genre receives the largest weight. That could prevent users from discovering songs in other genres that closely match their preferred mood or energy. Exact text matching also treats genres and moods as fixed categories even though real songs may belong to multiple categories. The small, manually created catalog may represent some genres and moods more often than others, giving those categories more opportunities to appear in the recommendations. The binary acoustic preference also simplifies a musical characteristic that exists on a continuous scale.
 
 ---
 
