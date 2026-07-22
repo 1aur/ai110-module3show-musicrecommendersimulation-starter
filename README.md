@@ -125,6 +125,32 @@ Paste a sample of your recommender's output here as a text block so a reader can
 #   3. ...
 ```
 
+Loading songs from data/songs.csv...
+Loaded songs: 18
+
+Top recommendations:
+
+1. Sunrise City by Neon Echo
+   Score: 4.48
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+0.98), acoustic preference match (+0.5)
+
+2. Gym Hero by Max Pulse
+   Score: 3.37
+   Reasons: genre match (+2.0), energy similarity (+0.87), acoustic preference match (+0.5)
+
+3. Rooftop Lights by Indigo Parade
+   Score: 2.46
+   Reasons: mood match (+1.0), energy similarity (+0.96), acoustic preference match (+0.5)
+
+4. Concrete Crown by Northside Verse
+   Score: 1.46
+   Reasons: energy similarity (+0.96), acoustic preference match (+0.5)
+
+5. Night Drive Loop by Neon Echo
+   Score: 1.45
+   Reasons: energy similarity (+0.95), acoustic preference match (+0.5)
+
+
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
 
 ---
