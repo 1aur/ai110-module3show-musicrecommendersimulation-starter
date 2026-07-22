@@ -297,5 +297,8 @@ Write 1 to 2 paragraphs here about what you learned:
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
 
+This project helped me understand how recommender systems turn user preferences and item features into ranked predictions. My biggest learning moment was discovering how strongly the selected weights affect the results. The conflicting user profile and weight-shift experiment showed that a recommendation can look logical while still underrepresenting an important preference.
+
+AI tools helped me generate edge cases, inspect the scoring math, and explain the rankings in plain language. I still needed to verify every suggestion by reading the code, running the tests, and comparing the actual terminal output. I was surprised that a simple weighted algorithm could create recommendations that felt personalized. If I continued the project, I would expand the catalog, support more detailed preferences, use user feedback, and improve variety among the top results.
 
 

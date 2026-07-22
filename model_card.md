@@ -20,6 +20,8 @@ Prompts:
 - Is this for real users or classroom exploration  
 
 VibeMatch 1.0 is a classroom music recommender simulation designed to generate a ranked list of songs based on a user's stated preferences. It compares preferences for genre, mood, energy, and acousticness with the attributes of each song in the catalog. The system assumes that the user can describe their current musical preferences using these four features. It is intended for educational exploration rather than use as a production recommendation service for real users.
+
+VibeMatch should not be used as a commercial recommendation system or as evidence of a person's identity, personality, or emotional state. It should not replace a real music platform that uses larger datasets, listening history, and user feedback.
 ---
 
 ## 3. How the Model Works  
@@ -126,6 +128,14 @@ Prompts:
 - Improving diversity among the top results  
 - Handling more complex user tastes  
 
+If I continued developing VibeMatch, I would:
+
+- Add preferences for tempo, valence, and danceability.
+- Allow users to choose how important each preference is.
+- Improve diversity so the top results do not all have similar features.
+- Use multiple genres and moods for each song instead of one exact label.
+- Learn from user feedback such as likes, skips, and repeated plays.
+
 ---
 
 ## 9. Personal Reflection  
@@ -137,3 +147,11 @@ Prompts:
 - What you learned about recommender systems  
 - Something unexpected or interesting you discovered  
 - How this changed the way you think about music recommendation apps  
+
+My biggest learning moment was seeing how much a small weight change could affect the entire recommendation list. The rules were simple, but changing genre from `2.0` to `1.0` and doubling energy caused several songs to move. It also caused `Blue Sunday` to disappear from the conflicting profile's top five. This showed me that a recommendation can appear reasonable while still being shaped by assumptions chosen by the developer.
+
+AI tools helped me brainstorm test profiles, check scoring logic, and explain unexpected results. However, I still needed to review the code, run the tests, and compare the actual terminal output with the suggested results. One experiment initially changed only the genre weight because the energy multiplier was still `1.0`. Double-checking the code and output helped me catch that issue.
+
+I was surprised that a basic weighted scoring algorithm could still produce recommendations that felt personalized. The system did not learn from real listening behavior, but matching genre, mood, energy, and acousticness was enough to create noticeably different lists. This helped me understand that recommendation systems do not need to be extremely complex to influence what users see.
+
+If I extended this project, I would add more songs, allow songs to have multiple genres and moods, and collect feedback from users. I would also test methods that balance preference matching with discovery so users are not repeatedly shown the same types of music.
