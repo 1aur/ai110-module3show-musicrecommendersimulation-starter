@@ -163,6 +163,111 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+The recommender was tested with four profiles representing different musical preferences, including one intentionally conflicting profile.
+
+**High-Energy Pop**
+
+```text
+1. Sunrise City by Neon Echo
+   Score: 4.48
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+0.98), acoustic preference match (+0.5)
+
+2. Gym Hero by Max Pulse
+   Score: 3.37
+   Reasons: genre match (+2.0), energy similarity (+0.87), acoustic preference match (+0.5)
+
+3. Rooftop Lights by Indigo Parade
+   Score: 2.46
+   Reasons: mood match (+1.0), energy similarity (+0.96), acoustic preference match (+0.5)
+
+4. Concrete Crown by Northside Verse
+   Score: 1.46
+   Reasons: energy similarity (+0.96), acoustic preference match (+0.5)
+
+5. Night Drive Loop by Neon Echo
+   Score: 1.45
+   Reasons: energy similarity (+0.95), acoustic preference match (+0.5)
+```
+
+**Chill Lofi**
+
+```text
+1. Midnight Coding by LoRoom
+   Score: 4.48
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+0.98), acoustic preference match (+0.5)
+
+2. Library Rain by Paper Lanterns
+   Score: 4.45
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+0.95), acoustic preference match (+0.5)
+
+3. Focus Flow by LoRoom
+   Score: 3.50
+   Reasons: genre match (+2.0), energy similarity (+1.00), acoustic preference match (+0.5)
+
+4. Spacewalk Thoughts by Orbit Bloom
+   Score: 2.38
+   Reasons: mood match (+1.0), energy similarity (+0.88), acoustic preference match (+0.5)
+
+5. Coffee Shop Stories by Slow Stereo
+   Score: 1.47
+   Reasons: energy similarity (+0.97), acoustic preference match (+0.5)
+```
+
+**Deep Intense Rock**
+
+```text
+1. Storm Runner by Voltline
+   Score: 4.49
+   Reasons: genre match (+2.0), mood match (+1.0), energy similarity (+0.99), acoustic preference match (+0.5)
+
+2. Gym Hero by Max Pulse
+   Score: 2.47
+   Reasons: mood match (+1.0), energy similarity (+0.97), acoustic preference match (+0.5)
+
+3. Golden Barrio by Luna Mar
+   Score: 1.48
+   Reasons: energy similarity (+0.98), acoustic preference match (+0.5)
+
+4. Concrete Crown by Northside Verse
+   Score: 1.44
+   Reasons: energy similarity (+0.94), acoustic preference match (+0.5)
+
+5. Electric Horizon by Nova Circuit
+   Score: 1.44
+   Reasons: energy similarity (+0.94), acoustic preference match (+0.5)
+```
+
+**Conflicting Sad Workout**
+
+```text
+1. Gym Hero by Max Pulse
+   Score: 3.47
+   Reasons: genre match (+2.0), energy similarity (+0.97), acoustic preference match (+0.5)
+
+2. Sunrise City by Neon Echo
+   Score: 3.42
+   Reasons: genre match (+2.0), energy similarity (+0.92), acoustic preference match (+0.5)
+
+3. Blue Sunday by The Harbor Choir
+   Score: 1.56
+   Reasons: mood match (+1.0), energy similarity (+0.56)
+
+4. Storm Runner by Voltline
+   Score: 1.49
+   Reasons: energy similarity (+0.99), acoustic preference match (+0.5)
+
+5. Golden Barrio by Luna Mar
+   Score: 1.48
+   Reasons: energy similarity (+0.98), acoustic preference match (+0.5)
+```
+
+The first three profiles produced intuitive first-place recommendations. The conflicting profile produced a more surprising result. Although `Blue Sunday` matched the requested melancholic mood, `Gym Hero` and `Sunrise City` ranked higher because they matched the pop genre, high-energy target, and non-acoustic preference. This demonstrates that several matching features can outweigh one mood match.
+
+I temporarily reduced the genre-match weight from `2.0` to `1.0` and doubled the maximum energy-similarity contribution from `1.0` to `2.0`. For the High-Energy Pop profile, `Rooftop Lights` moved above `Gym Hero` because its energy was closer to the target and it also matched the requested happy mood. This showed that reducing the genre weight allowed other features to influence the ranking more strongly.
+
+The change made the system more sensitive to energy, but it did not necessarily make every recommendation more accurate. For the Conflicting Sad Workout profile, `Blue Sunday` dropped out of the top five even though it matched the melancholic mood. High-energy songs from unrelated genres ranked above it because the doubled energy score became dominant. This experiment demonstrated that adjusting a weight can reduce one bias while creating another.
+
+
 ---
 
 ## Limitations and Risks
@@ -176,6 +281,8 @@ Examples:
 - It might over favor one genre or mood
 
 You will go deeper on this in your model card.
+
+The recommender relies on exact genre and mood matches, so it cannot recognize that differently labeled songs may still have similar musical qualities. The genre weight can dominate the ranking when a song also matches the user's energy and acoustic preferences. For the conflicting pop, melancholic, and high-energy profile, energetic pop songs ranked above the melancholic song because several matching features outweighed one mood match. The catalog contains only 18 manually selected songs, so users whose preferences are not well represented have fewer meaningful options. The binary acoustic preference and fixed `0.60` threshold also simplify a characteristic that exists on a continuous scale.
 
 ---
 
