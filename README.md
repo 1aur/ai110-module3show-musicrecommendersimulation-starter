@@ -29,6 +29,16 @@ Some prompts to answer:
 
 You can include a simple diagram or bullet list if helpful.
 
+Real-world recommendation platforms use information about both users and content to predict what each person may enjoy. Collaborative filtering finds patterns among users with similar behavior, such as listening to the same songs or adding similar artists to playlists. Content-based filtering instead compares a user's preferences with attributes of the available content. Large platforms can combine these methods with signals such as likes, skips, replays, searches, listening duration, and playlist activity. This simulation uses a simpler content-based approach that does not depend on data from other users.
+
+For each song, the recommender will compare its genre, mood, energy, and acousticness with the user's taste profile. Genre will receive the greatest weight, followed by mood, because these features strongly describe the type and overall vibe of a song. Numerical features will be scored according to how closely they match the user's preference rather than automatically rewarding larger values. The system will calculate a score for every song, sort the songs from highest score to lowest score, and return the top requested recommendations.
+
+Each Song object stores: id, title, artist, genre, mood, energy, tempo_bpm, valence, danceability, acousticness
+
+Each UserProfile object stores:, favorite_genre, favorite_mood, target_energy, likes_acoustic
+
+The initial recommendation score will prioritize genre, mood, energy closeness, and acousticness preference. Tempo, valence, and danceability will remain available for evaluation or future improvements.
+
 ---
 
 ## Getting Started
